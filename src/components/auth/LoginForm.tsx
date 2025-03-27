@@ -18,7 +18,7 @@ const LoginForm = () => {
                         type="text"
                         placeholder="PhoneNumber"
                         disabled={isLoading}
-                        className="pl-10 bg-gray-50 border borer-gray-300 text-gray-900 focus:ring-indigo-500 focus:border-indigo-500"
+                        className="pl-10 bg-gray-50 border border-gray-300 text-gray-900 focus:ring-[#12994A] focus:border-[#12994A]"
                     />
                 </div>
                 <div className="relative">
@@ -27,14 +27,14 @@ const LoginForm = () => {
                         type="text"
                         placeholder="Password"
                         disabled={isLoading}
-                        className="pl-10 bg-gray-50 border borer-gray-300 text-gray-900 focus:ring-indigo-500 focus:border-indigo-500"
+                        className="pl-10 bg-gray-50 border borer-gray-300 text-gray-900 focus:ring-[#12994A] focus:border-[#12994A]"
                     />
                 </div>
             </div>
             <Button
                 type="submit"
                 disabled={isLoading}
-                className="w-full mt-3 hover:bg-gray-800 text-white font-semibold py-3 px-4 rounded-md transition duration-300 ease-in-out transform hover:scale-105"
+                className="w-full mt-3 bg-[#12994A] hover:bg-[#0F7F3A] text-white font-semibold py-3 px-4 rounded-md transition duration-300 ease-in-out transform hover:scale-105"
             >
                 Log In
             </Button>
