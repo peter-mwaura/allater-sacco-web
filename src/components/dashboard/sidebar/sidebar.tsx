@@ -89,7 +89,6 @@ const menuItems = [
                 icon: <MdOutlineSettings />,
             },
             { title: 'Help', path: '/dashboard/help', icon: <MdHelpCenter /> },
-            { title: 'Logout', path: '/logout', icon: <MdLogout /> },
         ],
     },
 ];
@@ -124,6 +123,9 @@ const Sidebar = () => {
                     </li>
                 ))}
             </ul>
+            <button className="p-5 my-[5px] flex items-center gap-2.5 cursor-pointer rounded-[10px] bg-none border-none w-full hover:bg-[#12994A]">
+                <MdLogout /> Logout
+            </button>
         </div>
     );
 };
