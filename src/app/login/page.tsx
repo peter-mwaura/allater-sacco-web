@@ -1,7 +1,13 @@
+import { getAccessToken } from '@/actions/getAccessToken';
 import LoginForm from '@/components/auth/LoginForm';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
-const LoginPage = () => {
+const LoginPage = async () => {
+    // Check if authenticated
+    const accessToken = await getAccessToken();
+    if (accessToken) redirect('/');
+
     return (
         <div className="min-h-screen w-full flex flex-col justify-center md:flex-row bg-gradient-to-br from-gray-100 to-gray-200">
             <div className="w-full md:w-1/2 flex items-center justify-center p-8 lg:p-12">
