@@ -1,3 +1,5 @@
+'use client';
+
 import Pagination from '@/components/dashboard/pagination/pagination';
 import Search from '@/components/dashboard/search/search';
 import { Button } from '@/components/ui/button';
