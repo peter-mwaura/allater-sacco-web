@@ -3,10 +3,12 @@
 import Pagination from '@/components/dashboard/pagination/pagination';
 import Search from '@/components/dashboard/search/search';
 import { Button } from '@/components/ui/button';
+// import ConfirmDeleteModal from '@/components/dashboard/users/ConfirmDeleteModal'; // Import your modal
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import ConfirmDeleteModal from '@/components/common/ConfirmDeleteModal';
 
 interface User {
     id: string;
@@ -20,56 +22,77 @@ interface User {
 }
 
 const UsersPage = () => {
-    // Step 1: Initialize state
     const [users, setUsers] = useState<User[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [search, setSearch] = useState('');
     const [loading, setLoading] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [userToDelete, setUserToDelete] = useState<User | null>(null);
 
     const pageSize = 2;
 
-    // Step 2: Fetch User Data from the Backend using Axios
+    const fetchUsers = async () => {
+        setLoading(true);
+        try {
+            const response = await axios.get(
+                `https://allater-sacco-backend.onrender.com/users`,
+                {
+                    params: {
+                        page: currentPage,
+                        limit: pageSize,
+                        search: search,
+                    },
+                    withCredentials: true,
+                }
+            );
+            setUsers(response.data.users);
+            setCurrentPage(response.data.currentPage);
+            setTotalPages(response.data.totalPages);
+        } catch (error) {
+            console.error('Error fetching users:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     useEffect(() => {
-        const fetchUsers = async () => {
-            setLoading(true);
-
-            try {
-                console.log('Response');
-                const response = await axios.get(
-                    `https://allater-sacco-backend.onrender.com/users`,
-                    {
-                        params: {
-                            page: currentPage,
-                            limit: pageSize,
-                            search: search,
-                        },
-                        withCredentials: true, // Include cookies if required
-                    }
-                );
-                console.log(response, 'response');
-                setUsers(response.data.users);
-                setCurrentPage(response.data.currentPage);
-                setTotalPages(response.data.totalPages);
-            } catch (error) {
-                console.error('Error fetching users:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
         fetchUsers();
     }, [currentPage, search]);
 
-    // Step 3: Handle search input change
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(event.target.value);
-        setCurrentPage(1); // Reset to page 1 when searching
+        setCurrentPage(1);
     };
 
-    // Step 4: Handle page change
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
+    };
+
+    const handleDeleteClick = (user: User) => {
+        setUserToDelete(user);
+        setIsModalOpen(true);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!userToDelete) return;
+        console.log(userToDelete);
+        try {
+            await axios.delete(
+                `https://allater-sacco-backend.onrender.com/users/${userToDelete.id}`,
+                { withCredentials: true }
+            );
+            setIsModalOpen(false);
+            setUserToDelete(null);
+            fetchUsers(); // Refresh list
+        } catch (error) {
+            console.error('Error deleting user:', error);
+        }
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setUserToDelete(null);
     };
 
     return (
@@ -147,7 +170,12 @@ const UsersPage = () => {
                                                     View
                                                 </Button>
                                             </Link>
-                                            <Button className="py-1 px-3 text-xs bg-red-500 hover:bg-red-600 text-white rounded-[5px] transition">
+                                            <Button
+                                                onClick={() =>
+                                                    handleDeleteClick(user)
+                                                }
+                                                className="py-1 px-3 text-xs bg-red-500 hover:bg-red-600 text-white rounded-[5px] transition"
+                                            >
                                                 Delete
                                             </Button>
                                         </div>
@@ -166,6 +194,13 @@ const UsersPage = () => {
                     />
                 </div>
             </div>
+
+            {/* Confirm Delete Modal */}
+            <ConfirmDeleteModal
+                isOpen={isModalOpen}
+                onClose={handleCloseModal}
+                onConfirm={handleConfirmDelete}
+            />
         </div>
     );
 };
