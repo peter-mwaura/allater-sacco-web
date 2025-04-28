@@ -15,56 +15,61 @@ interface User {
     email: string;
     idnumber: string;
     role: string;
-    createdAt: string; // Adjust this to a Date if you're using Date objects
+    profilePic: string | null;
+    createdAt: string;
 }
 
 const UsersPage = () => {
+    // Step 1: Initialize state
     const [users, setUsers] = useState<User[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
-    const [searchTerm, setSearchTerm] = useState('');
+    const [search, setSearch] = useState('');
     const [loading, setLoading] = useState(false);
 
-    const fetchUsers = async (page: number, search: string) => {
-        setLoading(true);
-        try {
-            const response = await axios.get(
-                `https://allater-sacco-backend.onrender.com/users`,
-                {
-                    params: {
-                        page,
-                        search,
-                    },
-                }
-            );
-            setUsers(response.data.users);
-            setTotalPages(response.data.totalPages);
-        } catch (error) {
-            console.error('Error fetching users:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
+    const pageSize = 2;
 
+    // Step 2: Fetch User Data from the Backend using Axios
     useEffect(() => {
-        fetchUsers(currentPage, searchTerm);
-    }, [currentPage, searchTerm]);
+        const fetchUsers = async () => {
+            setLoading(true);
 
-    const handleSearch = (term: string) => {
-        setSearchTerm(term);
-        setCurrentPage(1); // Reset to first page when search is changed
+            try {
+                console.log('Response');
+                const response = await axios.get(
+                    `https://allater-sacco-backend.onrender.com/users`,
+                    {
+                        params: {
+                            page: currentPage,
+                            limit: pageSize,
+                            search: search,
+                        },
+                        withCredentials: true, // Include cookies if required
+                    }
+                );
+                console.log(response, 'response');
+                setUsers(response.data.users);
+                setCurrentPage(response.data.currentPage);
+                setTotalPages(response.data.totalPages);
+            } catch (error) {
+                console.error('Error fetching users:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchUsers();
+    }, [currentPage, search]);
+
+    // Step 3: Handle search input change
+    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSearch(event.target.value);
+        setCurrentPage(1); // Reset to page 1 when searching
     };
 
-    const handlePrevious = () => {
-        if (currentPage > 1) {
-            setCurrentPage((prev) => prev - 1);
-        }
-    };
-
-    const handleNext = () => {
-        if (currentPage < totalPages) {
-            setCurrentPage((prev) => prev + 1);
-        }
+    // Step 4: Handle page change
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page);
     };
 
     return (
@@ -72,7 +77,8 @@ const UsersPage = () => {
             <div className="flex items-center justify-between mb-5">
                 <Search
                     placeholder="Search for a user"
-                    onSearch={handleSearch}
+                    value={search}
+                    onChange={handleSearchChange}
                 />
                 <Link href="/dashboard/users/add">
                     <Button className="p-2.5 bg-[#12994A] text-white border-none rounded-[5px] cursor-pointer hover:bg-[#1BB85A] transition-colors duration-300 text-sm">
@@ -111,7 +117,7 @@ const UsersPage = () => {
                                         <div className="flex gap-2.5 items-center">
                                             <Image
                                                 src="/images/noavatar.png"
-                                                alt=""
+                                                alt="User Avatar"
                                                 width={40}
                                                 height={40}
                                                 className="rounded-full object-cover"
@@ -123,17 +129,7 @@ const UsersPage = () => {
                                     <td className="p-3">{user.email}</td>
                                     <td className="p-3">{user.idnumber}</td>
                                     <td className="p-3">
-                                        <span
-                                            className={`bg-${
-                                                user.role === 'ADMIN'
-                                                    ? 'green'
-                                                    : 'blue'
-                                            }-100 text-${
-                                                user.role === 'ADMIN'
-                                                    ? 'green'
-                                                    : 'blue'
-                                            }-800 text-xs font-medium px-2 py-1 rounded-md`}
-                                        >
+                                        <span className="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded-md">
                                             {user.role}
                                         </span>
                                     </td>
@@ -166,8 +162,7 @@ const UsersPage = () => {
                     <Pagination
                         currentPage={currentPage}
                         totalPages={totalPages}
-                        onPrevious={handlePrevious}
-                        onNext={handleNext}
+                        onPageChange={handlePageChange}
                     />
                 </div>
             </div>

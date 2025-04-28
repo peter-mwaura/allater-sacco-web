@@ -1,26 +1,21 @@
-import { Input } from '@/components/ui/input';
-import { MdSearch } from 'react-icons/md';
+// components/dashboard/search/search.tsx
+import React from 'react';
 
 interface SearchProps {
     placeholder: string;
-    onSearch: (searchTerm: string) => void; // Adding the onSearch prop
+    value: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Search = ({ placeholder, onSearch }: SearchProps) => {
-    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        onSearch(event.target.value); // Trigger the onSearch function with the input value
-    };
-
+const Search: React.FC<SearchProps> = ({ placeholder, value, onChange }) => {
     return (
-        <div className="flex items-center gap-2.5 bg-[#2e374a] p-2.5 rounded-[10px] w-max">
-            <MdSearch className="text-white" />
-            <Input
-                className="bg-transparent border-none text-white outline-none"
-                type="text"
-                placeholder={placeholder}
-                onChange={handleSearchChange} // Attach onChange handler
-            />
-        </div>
+        <input
+            type="text"
+            className="p-2 border border-gray-300 rounded-md"
+            placeholder={placeholder}
+            value={value}
+            onChange={onChange}
+        />
     );
 };
 
