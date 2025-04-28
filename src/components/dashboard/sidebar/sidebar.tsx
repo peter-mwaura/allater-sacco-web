@@ -32,63 +32,63 @@ const menuItems = [
                 path: '/dashboard/transactions',
                 icon: <MdAttachMoney />,
             },
-            {
-                title: 'Savings',
-                path: '/dashboard/savings',
-                icon: <MdSavings />,
-            },
-            {
-                title: 'Shares',
-                path: '/dashboard/shares',
-                icon: <MdEqualizer />,
-            },
-            {
-                title: 'Loans',
-                path: '/dashboard/loans',
-                icon: <MdRequestQuote />,
-            },
+            // {
+            //     title: 'Savings',
+            //     path: '/dashboard/savings',
+            //     icon: <MdSavings />,
+            // },
+            // {
+            //     title: 'Shares',
+            //     path: '/dashboard/shares',
+            //     icon: <MdEqualizer />,
+            // },
+            // {
+            //     title: 'Loans',
+            //     path: '/dashboard/loans',
+            //     icon: <MdRequestQuote />,
+            // },
         ],
     },
-    {
-        title: 'Management',
-        list: [
-            {
-                title: 'ID Verification',
-                path: '/dashboard/id-verification',
-                icon: <MdVerifiedUser />,
-            },
-            {
-                title: 'Membership Requests',
-                path: '/dashboard/requests',
-                icon: <MdGroupAdd />,
-            },
-        ],
-    },
-    {
-        title: 'Analytics',
-        list: [
-            { title: 'Revenue', path: '/dashboard/revenue', icon: <MdWork /> },
-            {
-                title: 'Reports',
-                path: '/dashboard/reports',
-                icon: <MdAnalytics />,
-            },
-            {
-                title: 'Performance',
-                path: '/dashboard/performance',
-                icon: <MdTrendingUp />,
-            },
-        ],
-    },
+    // {
+    //     title: 'Management',
+    //     list: [
+    //         {
+    //             title: 'ID Verification',
+    //             path: '/dashboard/id-verification',
+    //             icon: <MdVerifiedUser />,
+    //         },
+    //         {
+    //             title: 'Membership Requests',
+    //             path: '/dashboard/requests',
+    //             icon: <MdGroupAdd />,
+    //         },
+    //     ],
+    // },
+    // {
+    //     title: 'Analytics',
+    //     list: [
+    //         { title: 'Revenue', path: '/dashboard/revenue', icon: <MdWork /> },
+    //         {
+    //             title: 'Reports',
+    //             path: '/dashboard/reports',
+    //             icon: <MdAnalytics />,
+    //         },
+    //         {
+    //             title: 'Performance',
+    //             path: '/dashboard/performance',
+    //             icon: <MdTrendingUp />,
+    //         },
+    //     ],
+    // },
     {
         title: 'User',
         list: [
-            {
-                title: 'Settings',
-                path: '/dashboard/settings',
-                icon: <MdOutlineSettings />,
-            },
-            { title: 'Help', path: '/dashboard/help', icon: <MdHelpCenter /> },
+            // {
+            //     title: 'Settings',
+            //     path: '/dashboard/settings',
+            //     icon: <MdOutlineSettings />,
+            // },
+            // { title: 'Help', path: '/dashboard/help', icon: <MdHelpCenter /> },
         ],
     },
 ];

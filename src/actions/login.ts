@@ -37,11 +37,18 @@ export async function loginUserAction(formData: FormData) {
 
         // Set cookie
         (await cookies()).set('accessToken', accessToken, {
-            httpOnly: true, // JavaScript cannot access the token
-            secure: true, // Cookie is only sent over HTTPS
-            sameSite: 'strict', // Prevents CSRF attacks (only this site can send the cookie)
-            maxAge: 7200, // User will stay logged in for 2hrs
-            path: '/', // Cookie is available across the entire website/app
+            // For development
+            // httpOnly: true,
+            // secure: false,
+            // sameSite: 'None',
+            // maxAge: 7200,
+            // path: '/',
+            // For production
+            //httpOnly: true, // JavaScript cannot access the token
+            //secure: true, // Cookie is only sent over HTTPS
+            //sameSite: 'strict', // Prevents CSRF attacks (only this site can send the cookie)
+            //maxAge: 7200, // User will stay logged in for 2hrs
+            //path: '/', // Cookie is available across the entire website/app
         });
 
         return {
