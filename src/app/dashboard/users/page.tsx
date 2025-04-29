@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import ConfirmDeleteModal from '@/components/common/ConfirmDeleteModal';
 import ViewUserModal from '@/components/common/ViewUserModal';
+import AddUserModal from '@/components/common/AddUserModal';
 
 interface User {
     id: string;
@@ -32,6 +33,7 @@ const UsersPage = () => {
     const [userToDelete, setUserToDelete] = useState<User | null>(null);
     const [viewUser, setViewUser] = useState<User | null>(null);
     const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+    const [isAddUserModalOpen, setIsAddUserModalOpen] = useState(false);
 
     const pageSize = 2;
 
@@ -116,11 +118,13 @@ const UsersPage = () => {
                     value={search}
                     onChange={handleSearchChange}
                 />
-                <Link href="/dashboard/users/add">
-                    <Button className="p-2.5 bg-[#12994A] text-white border-none rounded-[5px] cursor-pointer hover:bg-[#1BB85A] transition-colors duration-300 text-sm">
-                        Add New
-                    </Button>
-                </Link>
+
+                <Button
+                    onClick={() => setIsAddUserModalOpen(true)}
+                    className="p-2.5 bg-[#12994A] text-white border-none rounded-[5px] cursor-pointer hover:bg-[#1BB85A] transition-colors duration-300 text-sm"
+                >
+                    Add New
+                </Button>
             </div>
 
             <div className="overflow-x-auto">
@@ -209,6 +213,12 @@ const UsersPage = () => {
                     />
                 </div>
             </div>
+
+            {/* AddUserModal Modal */}
+            <AddUserModal
+                isOpen={isAddUserModalOpen}
+                onClose={() => setIsAddUserModalOpen(false)}
+            />
 
             {/* ViewUserModal Modal */}
             <ViewUserModal
