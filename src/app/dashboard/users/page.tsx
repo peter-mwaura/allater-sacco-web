@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import ConfirmDeleteModal from '@/components/common/ConfirmDeleteModal';
+import ViewUserModal from '@/components/common/ViewUserModal';
 
 interface User {
     id: string;
@@ -29,6 +30,8 @@ const UsersPage = () => {
     const [loading, setLoading] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [userToDelete, setUserToDelete] = useState<User | null>(null);
+    const [viewUser, setViewUser] = useState<User | null>(null);
+    const [isViewModalOpen, setIsViewModalOpen] = useState(false);
 
     const pageSize = 2;
 
@@ -93,6 +96,16 @@ const UsersPage = () => {
     const handleCloseModal = () => {
         setIsModalOpen(false);
         setUserToDelete(null);
+    };
+
+    const handleViewClick = (user: User) => {
+        setViewUser(user);
+        setIsViewModalOpen(true);
+    };
+
+    const handleCloseViewModal = () => {
+        setIsViewModalOpen(false);
+        setViewUser(null);
     };
 
     return (
@@ -163,18 +176,20 @@ const UsersPage = () => {
                                     </td>
                                     <td className="p-3">
                                         <div className="flex gap-2.5">
-                                            <Link
-                                                href={`/dashboard/users/${user.id}`}
+                                            <Button
+                                                className="py-1 px-3 text-xs bg-[#12994A] hover:bg-[#1BB85A] text-white rounded-[5px] transition cursor-pointer"
+                                                onClick={() =>
+                                                    handleViewClick(user)
+                                                }
                                             >
-                                                <Button className="py-1 px-3 text-xs bg-[#12994A] hover:bg-[#1BB85A] text-white rounded-[5px] transition">
-                                                    View
-                                                </Button>
-                                            </Link>
+                                                View
+                                            </Button>
+
                                             <Button
                                                 onClick={() =>
                                                     handleDeleteClick(user)
                                                 }
-                                                className="py-1 px-3 text-xs bg-red-500 hover:bg-red-600 text-white rounded-[5px] transition"
+                                                className="py-1 px-3 text-xs bg-red-500 hover:bg-red-600 text-white rounded-[5px] transition cursor-pointer"
                                             >
                                                 Delete
                                             </Button>
@@ -195,11 +210,19 @@ const UsersPage = () => {
                 </div>
             </div>
 
+            {/* ViewUserModal Modal */}
+            <ViewUserModal
+                isOpen={isViewModalOpen}
+                onClose={handleCloseViewModal}
+                user={viewUser}
+            />
+
             {/* Confirm Delete Modal */}
             <ConfirmDeleteModal
                 isOpen={isModalOpen}
                 onClose={handleCloseModal}
                 onConfirm={handleConfirmDelete}
+                user={userToDelete}
             />
         </div>
     );
