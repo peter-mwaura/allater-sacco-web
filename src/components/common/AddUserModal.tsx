@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import * as z from 'zod';
 
 interface AddUserModalProps {
@@ -29,9 +30,10 @@ const AddUserModal = ({ isOpen, onClose }: AddUserModalProps) => {
                 'https://allater-sacco-backend.onrender.com/auth/signup',
                 data
             );
+            toast.success('User created successfully!');
             onClose();
         } catch (error) {
-            console.error('Error adding user:', error);
+            toast.error('Failed to create user.');
         }
     };
 

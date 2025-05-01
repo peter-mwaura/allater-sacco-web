@@ -11,6 +11,7 @@ import axios from 'axios';
 import ConfirmDeleteModal from '@/components/common/ConfirmDeleteModal';
 import ViewUserModal from '@/components/common/ViewUserModal';
 import AddUserModal from '@/components/common/AddUserModal';
+import { toast } from 'sonner';
 
 interface User {
     id: string;
@@ -90,8 +91,9 @@ const UsersPage = () => {
             setIsModalOpen(false);
             setUserToDelete(null);
             fetchUsers(); // Refresh list
+            toast.success('User deleted successfully!');
         } catch (error) {
-            console.error('Error deleting user:', error);
+            toast.error('Failed to delete user.');
         }
     };
 
