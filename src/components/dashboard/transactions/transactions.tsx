@@ -21,6 +21,7 @@ interface Savings {
 interface Transaction {
     id: string;
     savings?: Savings;
+    type: String;
     status: Status;
     createdAt: string;
     amount: number;
@@ -40,6 +41,7 @@ const Transactions: React.FC<TransactionsProps> = ({ data }) => {
                 <thead>
                     <tr className="text-left border-b border-gray-200">
                         <th className="p-2.5">Name</th>
+                        <th className="p-2.5">TransactionType</th>
                         <th className="p-2.5">Status</th>
                         <th className="p-2.5">Date</th>
                         <th className="p-2.5">Amount</th>
@@ -69,6 +71,13 @@ const Transactions: React.FC<TransactionsProps> = ({ data }) => {
                                         />
                                         {name}
                                     </div>
+                                </td>
+                                <td className="p-2.5">
+                                    <span className="text-sm font-medium text-gray-800">
+                                        {tx.type === 'DEPOSIT'
+                                            ? 'Deposit'
+                                            : 'Withdrawal'}
+                                    </span>
                                 </td>
                                 <td className="p-2.5">
                                     <span
