@@ -1,3 +1,5 @@
+'use client';
+
 import {
     MdDashboard,
     MdSupervisedUserCircle,
@@ -16,6 +18,10 @@ import {
 } from 'react-icons/md';
 import MenuLink from './menuLink/menuLink';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { logoutUserAction } from '@/actions/logout';
+import { useRouter } from 'next/navigation';
+import { getUserProfile } from '@/actions/getUserProfile';
 
 const menuItems = [
     {
@@ -94,21 +100,50 @@ const menuItems = [
 ];
 
 const Sidebar = () => {
+    const router = useRouter();
+    const [isPending, setIsPending] = useState(false);
+    const [user, setUser] = useState<{
+        fullname: string;
+        role: string;
+        profilePic: string;
+    } | null>(null);
+
+    const handleLogout = async () => {
+        setIsPending(true);
+        await logoutUserAction();
+        setIsPending(false);
+        router.push('/login');
+    };
+
+    useEffect(() => {
+        const fetchProfile = async () => {
+            try {
+                const user = await getUserProfile();
+                setUser(user);
+                console.log(user);
+            } catch (err) {
+                console.error('Failed to fetch user profile:', err);
+            }
+        };
+        fetchProfile();
+    }, []);
     return (
         <div className="sticky top-10 w-full bg-gradient-to-br from-gray-100 to-gray-200 p-5 rounded-lg shadow-lg">
             <div className="flex items-center gap-5 mb-5">
                 <Image
                     className="rounded-full object-cover"
-                    src="/images/noavatar.png"
+                    src={user?.profilePic || '/images/noavatar.png'}
                     alt="Avatar"
                     width="50"
                     height="50"
                 />
                 <div className="flex flex-col">
                     <span className="font-medium text-[#12994A]">
-                        Peter Mwaura
+                        {user?.fullname || 'Loading...'}
                     </span>
-                    <span className="text-xs text-gray-600">Admin</span>
+                    <span className="text-xs text-gray-600">
+                        {user?.role || 'Loading...'}
+                    </span>
                 </div>
             </div>
             <ul>
@@ -123,8 +158,12 @@ const Sidebar = () => {
                     </li>
                 ))}
             </ul>
-            <button className="p-5 my-[5px] flex items-center gap-2.5 cursor-pointer rounded-[10px] bg-none border-none w-full hover:bg-[#12994A]">
-                <MdLogout /> Logout
+            <button
+                onClick={handleLogout}
+                disabled={isPending}
+                className="p-5 my-[5px] flex items-center gap-2.5 cursor-pointer rounded-[10px] bg-none border-none w-full hover:bg-[#12994A]"
+            >
+                <MdLogout /> {isPending ? 'Logging out...' : 'Logout'}
             </button>
         </div>
     );
