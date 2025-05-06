@@ -44,11 +44,11 @@ export async function loginUserAction(formData: FormData) {
             // maxAge: 7200,
             // path: '/',
             // For production
-            //httpOnly: true, // JavaScript cannot access the token
-            //secure: true, // Cookie is only sent over HTTPS
-            //sameSite: 'strict', // Prevents CSRF attacks (only this site can send the cookie)
-            //maxAge: 7200, // User will stay logged in for 2hrs
-            //path: '/', // Cookie is available across the entire website/app
+            httpOnly: true, // JavaScript cannot access the token
+            secure: true, // Cookie is only sent over HTTPS
+            sameSite: 'strict', // Prevents CSRF attacks (only this site can send the cookie)
+            maxAge: 7200, // User will stay logged in for 2hrs
+            path: '/', // Cookie is available across the entire website/app
         });
 
         return {
