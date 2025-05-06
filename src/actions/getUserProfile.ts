@@ -1,19 +1,13 @@
-'use server';
-
-import { cookies } from 'next/headers';
+// app/actions/getUserProfile.ts
 import axios from 'axios';
 
 export const getUserProfile = async () => {
-    const token = (await cookies()).get('accessToken')?.value;
-
-    if (!token) return null;
-
     try {
         const response = await axios.get(
-            'https://allater-sacco-backend.onrender.com/user/me'
-            // {
-            //     withCredentials: true, // If using cookies
-            // }
+            'https://allater-sacco-backend.onrender.com/user/me',
+            {
+                withCredentials: true, // Important for cookies
+            }
         );
 
         return response.data;

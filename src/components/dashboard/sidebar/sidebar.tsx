@@ -117,16 +117,12 @@ const Sidebar = () => {
 
     useEffect(() => {
         const fetchProfile = async () => {
-            try {
-                const user = await getUserProfile();
-                setUser(user);
-                console.log(user);
-            } catch (err) {
-                console.error('Failed to fetch user profile:', err);
-            }
+            const user = await getUserProfile();
+            setUser(user);
         };
         fetchProfile();
     }, []);
+
     return (
         <div className="sticky top-10 w-full bg-gradient-to-br from-gray-100 to-gray-200 p-5 rounded-lg shadow-lg">
             <div className="flex items-center gap-5 mb-5">
