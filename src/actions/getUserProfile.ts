@@ -4,10 +4,7 @@ import axios from 'axios';
 export const getUserProfile = async () => {
     try {
         const response = await axios.get(
-            'https://allater-sacco-backend.onrender.com/user/me',
-            {
-                withCredentials: true, // Important for cookies
-            }
+            'https://allater-sacco-backend.onrender.com/user/me'
         );
 
         return response.data;

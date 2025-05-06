@@ -31,14 +31,24 @@ export async function loginUserAction(formData: FormData) {
     try {
         const response = await axios.post(
             'https://allater-sacco-backend.onrender.com/auth/login',
-            { phonenumber, password },
-            { withCredentials: true }
+            { phonenumber, password }
         );
+
+        const { accessToken, userId, phonenumber: phone, role } = response.data;
 
         return {
             success: 'Welcome back!',
             status: 200,
+            accessToken,
+            userId,
+            phone,
+            role,
         };
+
+        // return {
+        //     success: 'Welcome back!',
+        //     status: 200,
+        // };
     } catch (error) {
         console.log(error, 'Login error');
         return {

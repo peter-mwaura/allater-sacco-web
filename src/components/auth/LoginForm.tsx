@@ -40,7 +40,8 @@ const LoginForm = () => {
             const formData = new FormData();
             Object.keys(data).forEach((key) => formData.append(key, data[key]));
             const result = await loginUserAction(formData);
-            if (result.success) {
+            if (result.status === 200 && result.accessToken) {
+                localStorage.setItem('accessToken', result.accessToken);
                 toast.success('Login successful', {
                     description: result.success,
                 });
