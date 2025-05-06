@@ -118,6 +118,7 @@ const Sidebar = () => {
     useEffect(() => {
         const fetchProfile = async () => {
             const user = await getUserProfile();
+            console.log(user);
             setUser(user);
         };
         fetchProfile();
