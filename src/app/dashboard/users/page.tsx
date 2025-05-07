@@ -80,10 +80,20 @@ const UsersPage = () => {
 
     const handleConfirmDelete = async () => {
         if (!userToDelete) return;
-        console.log(userToDelete);
+
+        const token = localStorage.getItem('accessToken');
+        if (!token) {
+            toast.error('Unauthorized request: no token found.');
+            return;
+        }
         try {
             await axios.delete(
-                `https://allater-sacco-backend.onrender.com/users/${userToDelete.id}`
+                `https://allater-sacco-backend.onrender.com/users/${userToDelete.id}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
             );
             setIsModalOpen(false);
             setUserToDelete(null);
