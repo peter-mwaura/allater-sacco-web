@@ -5,9 +5,15 @@ import Chart from '@/components/dashboard/chart/chart';
 import Rightbar from '@/components/dashboard/rightbar/rightbar';
 import Transactions from '@/components/dashboard/transactions/transactions';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { useAuthGuard } from '../hooks/useAuthGuard';
 
 const Dashboard = () => {
+    const router = useRouter();
+
+    const isAuthenticated = useAuthGuard();
+
     // totalUsers, totalSavings, totalShares, totalLoans, recentTransactions
     const [summary, setSummary] = useState({
         totalUsers: 0,
@@ -28,8 +34,20 @@ const Dashboard = () => {
                 console.error('Failed to fetch dashboard summary', err);
             }
         };
-        fetchSummary();
-    }, []);
+        if (isAuthenticated) {
+            fetchSummary();
+        }
+    }, [isAuthenticated]);
+
+    if (isAuthenticated === null) {
+        return (
+            <div className="flex items-center justify-center min-h-screen">
+                <p className="text-gray-600">Checking authentication...</p>
+            </div>
+        );
+    }
+
+    if (!isAuthenticated) return null;
 
     return (
         <div className="flex gap-5 mt-5">

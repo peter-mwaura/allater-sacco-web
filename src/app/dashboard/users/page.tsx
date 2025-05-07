@@ -3,7 +3,6 @@
 import Pagination from '@/components/dashboard/pagination/pagination';
 import Search from '@/components/dashboard/search/search';
 import { Button } from '@/components/ui/button';
-// import ConfirmDeleteModal from '@/components/dashboard/users/ConfirmDeleteModal'; // Import your modal
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -49,7 +48,6 @@ const UsersPage = () => {
                         limit: pageSize,
                         search: search,
                     },
-                    withCredentials: true,
                 }
             );
             setUsers(response.data.users);

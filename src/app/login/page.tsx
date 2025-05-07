@@ -1,12 +1,34 @@
-import { getAccessToken } from '@/actions/getAccessToken';
+'use client';
+
 import LoginForm from '@/components/auth/LoginForm';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
-const LoginPage = async () => {
-    // Check if authenticated
-    const accessToken = await getAccessToken();
-    if (accessToken) redirect('/');
+const LoginPage = () => {
+    const searchParams = useSearchParams();
+    const from = searchParams.get('from') || '/dashboard';
+    const router = useRouter();
+    const [checkingAuth, setCheckingAuth] = useState(true);
+
+    useEffect(() => {
+        const token = localStorage.getItem('accessToken');
+        if (token) {
+            router.replace(from); // Redirect if already logged in
+        } else {
+            setCheckingAuth(false); // Show form if not authenticated
+        }
+    }, [from, router]);
+
+    if (checkingAuth) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-gray-100">
+                <p className="text-gray-600 text-lg">
+                    Checking authentication...
+                </p>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen w-full flex flex-col justify-center md:flex-row bg-gradient-to-br from-gray-100 to-gray-200">
@@ -19,7 +41,7 @@ const LoginPage = async () => {
                         <p className="text-sm text-gray-500">
                             Welcome back! Please enter your details
                         </p>
-                        <LoginForm />
+                        <LoginForm from={from} />
                         <p className="text-center text-sm text-gray-600">
                             Don't have an account?
                             <Link

@@ -110,7 +110,7 @@ const Sidebar = () => {
 
     const handleLogout = async () => {
         setIsPending(true);
-        await logoutUserAction();
+        localStorage.removeItem('accessToken');
         setIsPending(false);
         router.push('/login');
     };

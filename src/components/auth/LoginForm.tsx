@@ -20,7 +20,11 @@ const schema = z.object({
         .min(4, { message: 'Password must be at least 4 characters' }),
 });
 
-const LoginForm = () => {
+type LoginFormProps = {
+    from?: string; // optional prop
+};
+
+const LoginForm = ({ from = '/dashboard' }: LoginFormProps) => {
     const [isLoading, setIsLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
 
@@ -45,7 +49,7 @@ const LoginForm = () => {
                 toast.success('Login successful', {
                     description: result.success,
                 });
-                router.push('/');
+                router.push(from);
             } else {
                 throw new Error(result.error || 'Something went wrong');
             }

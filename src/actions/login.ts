@@ -2,7 +2,6 @@
 
 import { z } from 'zod';
 import axios from 'axios';
-import { cookies } from 'next/headers';
 
 const schema = z.object({
     phonenumber: z
