@@ -83,8 +83,7 @@ const UsersPage = () => {
         console.log(userToDelete);
         try {
             await axios.delete(
-                `https://allater-sacco-backend.onrender.com/users/${userToDelete.id}`,
-                { withCredentials: true }
+                `https://allater-sacco-backend.onrender.com/users/${userToDelete.id}`
             );
             setIsModalOpen(false);
             setUserToDelete(null);
