@@ -136,9 +136,9 @@ const UsersPage = () => {
                 </Button>
             </div>
 
-            <div className="overflow-x-auto">
+            <div className="w-full overflow-x-auto">
                 <table className="min-w-full bg-white rounded-[10px] shadow-lg text-sm">
-                    <thead className="bg-[#12994A] text-white text-left text-sm font-medium">
+                    <thead className="bg-[#12994A] text-white text-left text-sm font-medium hidden sm:table-header-group">
                         <tr>
                             <th className="p-3">Name</th>
                             <th className="p-3">Phonenumber</th>
@@ -160,9 +160,12 @@ const UsersPage = () => {
                             users.map((user) => (
                                 <tr
                                     key={user.id}
-                                    className="hover:bg-[#f0fdf4] border-b border-gray-200"
+                                    className="hover:bg-[#f0fdf4] border-b border-gray-200 sm:table-row block mb-4 sm:mb-0 rounded-lg sm:rounded-none shadow-sm sm:shadow-none p-4 sm:p-0"
                                 >
-                                    <td className="p-3">
+                                    <td
+                                        className="p-3 block sm:table-cell text-sm sm:before:content-none before:content-[attr(data-label)] before:font-semibold before:mr-2"
+                                        data-label="Name"
+                                    >
                                         <div className="flex gap-2.5 items-center">
                                             <Image
                                                 src="/images/noavatar.png"
@@ -174,20 +177,44 @@ const UsersPage = () => {
                                             {user.fullname}
                                         </div>
                                     </td>
-                                    <td className="p-3">{user.phonenumber}</td>
-                                    <td className="p-3">{user.email}</td>
-                                    <td className="p-3">{user.idnumber}</td>
-                                    <td className="p-3">
+                                    <td
+                                        className="p-3 block sm:table-cell text-sm sm:before:content-none before:content-[attr(data-label)] before:font-semibold before:mr-2"
+                                        data-label="Phonenumber"
+                                    >
+                                        {user.phonenumber}
+                                    </td>
+                                    <td
+                                        className="p-3 block sm:table-cell text-sm sm:before:content-none before:content-[attr(data-label)] before:font-semibold before:mr-2"
+                                        data-label="Email"
+                                    >
+                                        {user.email}
+                                    </td>
+                                    <td
+                                        className="p-3 block sm:table-cell text-sm sm:before:content-none before:content-[attr(data-label)] before:font-semibold before:mr-2"
+                                        data-label="ID Number"
+                                    >
+                                        {user.idnumber}
+                                    </td>
+                                    <td
+                                        className="p-3 block sm:table-cell text-sm sm:before:content-none before:content-[attr(data-label)] before:font-semibold before:mr-2"
+                                        data-label="Role"
+                                    >
                                         <span className="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded-md">
                                             {user.role}
                                         </span>
                                     </td>
-                                    <td className="p-3">
+                                    <td
+                                        className="p-3 block sm:table-cell text-sm sm:before:content-none before:content-[attr(data-label)] before:font-semibold before:mr-2"
+                                        data-label="CreatedAt"
+                                    >
                                         {new Date(
                                             user.createdAt
                                         ).toLocaleDateString()}
                                     </td>
-                                    <td className="p-3">
+                                    <td
+                                        className="p-3 block sm:table-cell text-sm sm:before:content-none before:content-[attr(data-label)] before:font-semibold before:mr-2"
+                                        data-label="Actions"
+                                    >
                                         <div className="flex gap-2.5">
                                             <Button
                                                 className="py-1 px-3 text-xs bg-[#12994A] hover:bg-[#1BB85A] text-white rounded-[5px] transition cursor-pointer"
@@ -227,6 +254,7 @@ const UsersPage = () => {
             <AddUserModal
                 isOpen={isAddUserModalOpen}
                 onClose={() => setIsAddUserModalOpen(false)}
+                onUserAdded={fetchUsers}
             />
 
             {/* ViewUserModal Modal */}
