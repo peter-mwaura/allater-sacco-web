@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 interface AddUserModalProps {
     isOpen: boolean;
     onClose: () => void;
+    onUserAdded: () => void;
 }
 
 const schema = z.object({
@@ -23,7 +24,7 @@ const schema = z.object({
     role: z.string().min(1, { message: 'Role should not be empty' }),
 });
 
-const AddUserModal = ({ isOpen, onClose }: AddUserModalProps) => {
+const AddUserModal = ({ isOpen, onClose, onUserAdded }: AddUserModalProps) => {
     const {
         register,
         handleSubmit,
@@ -39,6 +40,7 @@ const AddUserModal = ({ isOpen, onClose }: AddUserModalProps) => {
             );
             toast.success('User created successfully!');
             onClose();
+            onUserAdded(); // Refresh user list
         } catch (error) {
             toast.error('Failed to create user.');
         }
