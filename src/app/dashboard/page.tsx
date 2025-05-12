@@ -50,9 +50,9 @@ const Dashboard = () => {
     if (!isAuthenticated) return null;
 
     return (
-        <div className="flex gap-5 mt-5">
-            <div className="flex-3 flex flex-col gap-5">
-                <div className="flex gap-5 justify-between">
+        <div className="flex flex-col lg:flex-row gap-5 mt-5">
+            <div className="flex-1 flex flex-col gap-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
                     <Card title={'Users'} number={summary.totalUsers} />
                     <Card title={'Savings'} number={summary.totalSavings} />
                     <Card title={'Shares'} number={summary.totalShares} />
@@ -61,7 +61,7 @@ const Dashboard = () => {
                 <Transactions data={summary.recentTransactions} />
                 <Chart />
             </div>
-            <div className="flex-1">
+            <div className="hidden lg:block lg:max-w-sm">
                 <Rightbar />
             </div>
         </div>

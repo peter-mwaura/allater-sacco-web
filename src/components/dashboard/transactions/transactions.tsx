@@ -37,65 +37,73 @@ const Transactions: React.FC<TransactionsProps> = ({ data }) => {
             <h2 className="mb-5 text-xl font-semibold text-[#12994A]">
                 Latest Transactions
             </h2>
-            <table className="w-full text-sm text-gray-700">
-                <thead>
-                    <tr className="text-left border-b border-gray-200">
-                        <th className="p-2.5">Name</th>
-                        <th className="p-2.5">TransactionType</th>
-                        <th className="p-2.5">Status</th>
-                        <th className="p-2.5">Date</th>
-                        <th className="p-2.5">Amount</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {data?.map((tx) => {
-                        const user = tx.savings?.user;
-                        const name = user?.fullname || 'Unknown';
-                        const avatar =
-                            user?.profilePic || '/images/noavatar.png';
-                        const status = tx.status;
-                        const statusColor =
-                            statusColorMap[status] ||
-                            'bg-gray-200 text-gray-700';
 
-                        return (
-                            <tr key={tx.id} className="border-b">
-                                <td className="p-2.5">
-                                    <div className="flex items-center gap-2.5">
-                                        <Image
-                                            className="rounded-full object-cover"
-                                            src={avatar}
-                                            alt={name}
-                                            width={40}
-                                            height={40}
-                                        />
-                                        {name}
-                                    </div>
-                                </td>
-                                <td className="p-2.5">
-                                    <span className="text-sm font-medium text-gray-800">
-                                        {tx.type === 'DEPOSIT'
-                                            ? 'Deposit'
-                                            : 'Withdrawal'}
-                                    </span>
-                                </td>
-                                <td className="p-2.5">
-                                    <span
-                                        className={`${statusColor} text-xs font-medium px-2.5 py-1 rounded-md`}
-                                    >
-                                        {status.charAt(0).toUpperCase() +
-                                            status.slice(1).toLowerCase()}
-                                    </span>
-                                </td>
-                                <td className="p-2.5">
-                                    {moment(tx.createdAt).format('DD.MM.YYYY')}
-                                </td>
-                                <td className="p-2.5">Kshs{tx.amount}</td>
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
+            {/* Scrollable table on small screens */}
+            <div className="overflow-x-auto">
+                <table className="w-full min-w-[640px] text-sm text-gray-700">
+                    <thead>
+                        <tr className="text-left border-b border-gray-200">
+                            <th className="p-2.5 whitespace-nowrap">Name</th>
+                            <th className="p-2.5 whitespace-nowrap">
+                                TransactionType
+                            </th>
+                            <th className="p-2.5 whitespace-nowrap">Status</th>
+                            <th className="p-2.5 whitespace-nowrap">Date</th>
+                            <th className="p-2.5 whitespace-nowrap">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {data?.map((tx) => {
+                            const user = tx.savings?.user;
+                            const name = user?.fullname || 'Unknown';
+                            const avatar =
+                                user?.profilePic || '/images/noavatar.png';
+                            const status = tx.status;
+                            const statusColor =
+                                statusColorMap[status] ||
+                                'bg-gray-200 text-gray-700';
+
+                            return (
+                                <tr key={tx.id} className="border-b">
+                                    <td className="p-2.5">
+                                        <div className="flex items-center gap-2.5">
+                                            <Image
+                                                className="rounded-full object-cover"
+                                                src={avatar}
+                                                alt={name}
+                                                width={40}
+                                                height={40}
+                                            />
+                                            {name}
+                                        </div>
+                                    </td>
+                                    <td className="p-2.5">
+                                        <span className="text-sm font-medium text-gray-800">
+                                            {tx.type === 'DEPOSIT'
+                                                ? 'Deposit'
+                                                : 'Withdrawal'}
+                                        </span>
+                                    </td>
+                                    <td className="p-2.5">
+                                        <span
+                                            className={`${statusColor} text-xs font-medium px-2.5 py-1 rounded-md`}
+                                        >
+                                            {status.charAt(0).toUpperCase() +
+                                                status.slice(1).toLowerCase()}
+                                        </span>
+                                    </td>
+                                    <td className="p-2.5">
+                                        {moment(tx.createdAt).format(
+                                            'DD.MM.YYYY'
+                                        )}
+                                    </td>
+                                    <td className="p-2.5">Kshs{tx.amount}</td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };
