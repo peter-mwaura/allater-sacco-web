@@ -26,17 +26,22 @@ const Pagination = ({
     };
 
     return (
-        <div className="flex justify-between gap-2.5 p-5 mt-5">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-3 px-5 mt-5">
             <Button
                 onClick={handlePreviousPage}
-                className="py-[5px] px-[15px] bg-gray-200 hover:bg-gray-300 text-[#2e374a] rounded-[5px] transition cursor-pointer"
+                className="py-[5px] px-[15px] bg-gray-200 hover:bg-gray-300 text-[#2e374a] rounded-[5px] transition cursor-pointer disabled:opacity-50"
                 disabled={currentPage === 1}
             >
                 Previous
             </Button>
+
+            <span className="text-sm">
+                Page {currentPage} of {totalPages}
+            </span>
+
             <Button
                 onClick={handleNextPage}
-                className="py-[5px] px-[15px] bg-[#12994A] hover:bg-[#1BB85A] text-white rounded-[5px] transition cursor-pointer"
+                className="py-[5px] px-[15px] bg-[#12994A] hover:bg-[#1BB85A] text-white rounded-[5px] transition cursor-pointer disabled:opacity-50"
                 disabled={currentPage === totalPages}
             >
                 Next
