@@ -14,7 +14,7 @@ Make sure you have the following installed:
 1. **Clone the repository**
 
 ```bash
-git clone https://github.com/peter-mwaura/allater-sacco-web.git
+git clone https://github.com/your-username/allater-sacco-web.git
 cd allater-sacco-web
 ```
 
@@ -31,7 +31,7 @@ npm install
 Create a `.env.local` file in the root directory and add the following:
 
 ```env
-NEXT_PUBLIC_API_BASE_URL=https://allater-sacco-backend.onrender.com
+NEXT_PUBLIC_API_BASE_URL=https://your-backend-api.com/api
 ```
 
 4. **Run the development server**
