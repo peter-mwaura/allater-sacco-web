@@ -31,7 +31,15 @@ npm install
 Create a `.env.local` file in the root directory and add the following:
 
 ```env
-NEXT_PUBLIC_API_BASE_URL=https://your-backend-api.com/api
+NEXT_PUBLIC_API_BASE_URL=https://allater-sacco-backend.onrender.com
+
+# ⚠️ Note:
+# For demo purposes, screenshots are included below.
+# If you are a recruiter or reviewer and would like access to a live demo or test credentials,
+# feel free to use the following:
+#
+# Phone Number: 0724959551
+# Password: 4332
 ```
 
 4. **Run the development server**
