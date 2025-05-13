@@ -14,7 +14,7 @@ Make sure you have the following installed:
 1. **Clone the repository**
 
 ```bash
-git clone https://github.com/your-username/allater-sacco-web.git
+git clone https://github.com/peter-mwaura/allater-sacco-web.git
 cd allater-sacco-web
 ```
 
