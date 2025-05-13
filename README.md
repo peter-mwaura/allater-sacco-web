@@ -48,40 +48,40 @@ Here are some screenshots showcasing the Sacco Website Frontend:
 
 ### Homepage
 
-![Homepage](assets/screenshots/homepage.png)
+![Homepage](assets/screenshots/homepage.jpg)
 
 Mobile View:
 
-![Homepage Mobile](assets/screenshots/homepage-mobile.png)
+![Homepage Mobile](assets/screenshots/homepage-mobile.jpg)
 
 ### Login Page
 
-![Login Page](assets/screenshots/loginpage.png)
+![Login Page](assets/screenshots/loginpage.jpg)
 
 Mobile View:
 
-![Login Page Mobile](assets/screenshots/loginpage-mobile.png)
+![Login Page Mobile](assets/screenshots/loginpage-mobile.jpg)
 
 ### Dashboard Page
 
-![Dashboard Page](assets/screenshots/dashboardpage.png)
+![Dashboard Page](assets/screenshots/dashboardpage.jpg)
 
 Mobile View:
 
-![Dashboard Page Mobile](assets/screenshots/dashboardpage-mobile.png)
+![Dashboard Page Mobile](assets/screenshots/dashboardpage-mobile.jpg)
 
 ### Dashboard/Users Page
 
-![Dashboard Users Page](assets/screenshots/dashboard-users-page.png)
+![Dashboard Users Page](assets/screenshots/dashboard-users-page.jpg)
 
 Mobile View:
 
-![Dashboard Users Page Mobile](assets/screenshots/dashboard-users-page-mobile.png)
+![Dashboard Users Page Mobile](assets/screenshots/dashboard-users-page-mobile.jpg)
 
 ### Dashboard/Transactions Page
 
-![Dashboard Transactions Page](assets/screenshots/dashboard-transactions-page.png)
+![Dashboard Transactions Page](assets/screenshots/dashboard-transactions-page.jpg)
 
 Mobile View:
 
-![Dashboard Transactions Page Mobile](assets/screenshots/dashboard-transactions-page-mobile.png)
+![Dashboard Transactions Page Mobile](assets/screenshots/dashboard-transactions-page-mobile.jpg)
