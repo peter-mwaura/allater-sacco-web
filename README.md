@@ -38,8 +38,8 @@ NEXT_PUBLIC_API_BASE_URL=https://allater-sacco-backend.onrender.com
 # If you are a recruiter or reviewer and would like access to a live demo or test credentials,
 # feel free to use the following:
 #
-# Phone Number: 0724959551
-# Password: 4332
+# Phone Number: 0704391679
+# Password: 3220
 ```
 
 4. **Run the development server**
